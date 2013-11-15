@@ -1,0 +1,12 @@
+[
+    {
+        "caption": "Lambda Substitution: Toggle On",
+        "command": "lambda_substitution_on",
+        "args": {}
+    },
+    {
+        "caption": "Lambda Substitution: Toggle Off",
+        "command": "lambda_substitution_off",
+        "args": {}
+    }
+]

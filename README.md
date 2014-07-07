@@ -1,7 +1,7 @@
 Lambda Substitution... Literally
 ================================
 
-A toy plugin for Sublime Text 3 that allows you to use nice Unicode `λ` symbols in your code and text.
+A toy plugin for Sublime Text 2/3 that allows you to use nice Unicode `λ` symbols in your code and text.
 
 Functionality
 -------------

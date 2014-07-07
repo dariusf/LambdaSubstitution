@@ -4,6 +4,14 @@ import re
 LAMBDA = 'λ'
 BACKSLASH = '\\'
 
+def saves_lambda_characters():
+    settings = sublime.load_settings("Preferences.sublime-settings")
+    return bool(settings.get("save_lambda_characters", True))
+
+def set_saves_lambda_characters(enabled):
+    settings = sublime.load_settings("Preferences.sublime-settings")
+    settings.set("save_lambda_characters", enabled)
+
 class LambdaSubstitutionCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         view = self.view
@@ -30,3 +38,14 @@ class LambdaSubstitutionCommand(sublime_plugin.TextCommand):
             selection.clear()
             for r in new_cursor_positions:
                 selection.add(r)
+
+class ReplaceLambdasCommand(sublime_plugin.TextCommand):
+    def run(self, edit):
+        all_text = sublime.Region(0, self.view.size())
+        self.view.replace(edit, all_text, re.sub(LAMBDA, BACKSLASH, self.view.substr(all_text)))
+
+class LambdaReplace(sublime_plugin.EventListener):
+
+    def on_pre_save(self, view):
+        if not saves_lambda_characters():
+            view.run_command("replace_lambdas")

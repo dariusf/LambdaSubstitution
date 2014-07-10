@@ -4,7 +4,6 @@ import sublime, sublime_plugin
 import re
 
 LAMBDA = 'λ'
-BACKSLASH = '\\'
 
 def saves_lambda_characters():
     settings = sublime.load_settings("Preferences.sublime-settings")
@@ -25,7 +24,7 @@ class LambdaSubstitutionCommand(sublime_plugin.TextCommand):
                 # wasn't a lambda character, else insert a backslash.
                 character_before = sublime.Region(s.a-1, s.a)
                 if view.substr(character_before) == LAMBDA:
-                    view.replace(edit, character_before, BACKSLASH)
+                    view.replace(edit, character_before, '\\')
                 else:
                     view.insert(edit, s.a, LAMBDA)
             else:
@@ -44,7 +43,7 @@ class LambdaSubstitutionCommand(sublime_plugin.TextCommand):
 class ReplaceLambdasCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         all_text = sublime.Region(0, self.view.size())
-        self.view.replace(edit, all_text, re.sub(LAMBDA, BACKSLASH, self.view.substr(all_text)))
+        self.view.replace(edit, all_text, re.sub(LAMBDA, r'\\', self.view.substr(all_text)))
 
 class LambdaReplace(sublime_plugin.EventListener):
 

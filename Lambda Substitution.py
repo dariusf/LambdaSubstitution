@@ -3,7 +3,7 @@
 import sublime, sublime_plugin
 import re
 
-LAMBDA = 'λ'
+LAMBDA = u'λ'
 
 def saves_lambda_characters():
     settings = sublime.load_settings("Preferences.sublime-settings")

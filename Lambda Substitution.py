@@ -40,13 +40,23 @@ class LambdaSubstitutionCommand(sublime_plugin.TextCommand):
             for r in new_cursor_positions:
                 selection.add(r)
 
-class ReplaceLambdasCommand(sublime_plugin.TextCommand):
-    def run(self, edit):
-        all_text = sublime.Region(0, self.view.size())
-        self.view.replace(edit, all_text, re.sub(LAMBDA, r'\\', self.view.substr(all_text)))
-
 class LambdaReplace(sublime_plugin.EventListener):
 
     def on_pre_save(self, view):
+        print(saves_lambda_characters())
         if not saves_lambda_characters():
             view.run_command("replace_lambdas")
+
+class ReplaceLambdasCommand(sublime_plugin.TextCommand):
+    def run(self, edit):
+        # save cursor position
+        selection = self.view.sel()
+        cursor_position = selection[0]
+
+        # replace text
+        all_text = sublime.Region(0, self.view.size())
+        self.view.replace(edit, all_text, re.sub(LAMBDA, r'\\', self.view.substr(all_text)))
+
+        # restore cursor position
+        selection.clear()
+        selection.add(cursor_position)

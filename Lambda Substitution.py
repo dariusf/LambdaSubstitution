@@ -6,11 +6,11 @@ import re
 LAMBDA = u'λ'
 
 def saves_lambda_characters():
-    settings = sublime.load_settings("Preferences.sublime-settings")
+    settings = sublime.load_settings("Lambda Substitution.sublime-settings")
     return bool(settings.get("save_lambda_characters", True))
 
 def set_saves_lambda_characters(enabled):
-    settings = sublime.load_settings("Preferences.sublime-settings")
+    settings = sublime.load_settings("Lambda Substitution.sublime-settings")
     settings.set("save_lambda_characters", enabled)
 
 class LambdaSubstitutionCommand(sublime_plugin.TextCommand):
